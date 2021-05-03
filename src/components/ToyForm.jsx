@@ -18,4 +18,4 @@ class ToyForm extends Component {
 
 }
 
-export default ToyForm;
+export default ToyForm

@@ -1,3 +1,11 @@
+// hierarchy: 
+// app.js
+    // header.jsx
+    // toyform.jsx
+    // toycontainer.jsx
+        // toycard.jsx
+
+// App.js
 import React from 'react';
 import './App.css';
 
@@ -85,7 +93,7 @@ class App extends React.Component{
           <div className="buttonContainer">
             <button onClick={this.handleClick}> Add a Toy </button>
           </div>
-
+          
         <ToyContainer toys={this.state.toys} donateToy={this.donateToy} likeToy={this.likeToy}/>
       </div>
     )
@@ -94,3 +102,74 @@ class App extends React.Component{
 }
 
 export default App;
+
+// Header.jsx
+import React from 'react';
+
+const ToyHeader = () => (
+  <div id='toy-header'>
+    <img src="https://fontmeme.com/permalink/180719/67429e6afec53d21d64643101c43f029.png" alt="toy-header"/>
+  </div>
+);
+
+export default ToyHeader;
+
+// ToyForm.jsx
+import React, { Component } from 'react';
+
+class ToyForm extends Component {
+
+  render() {
+    return (
+      <div className="container">
+        <form className="add-toy-form" onSubmit={this.props.createNewToy}>          <h3>Create a toy!</h3>
+          <input type="text" name="name" placeholder="Enter a toy's name..." className="input-text"/>
+          <br/>
+          <input type="text" name="image" placeholder="Enter a toy's image URL..." className="input-text"/>
+          <br/>
+          <input type="submit" name="submit" value="Create New Toy" className="submit"/>
+        </form>
+      </div>
+    );
+  }
+
+}
+
+export default ToyForm;
+
+// ToyContainer.jsx
+import React from 'react';
+import ToyCard from './ToyCard'
+
+const ToyContainer = (props) => {
+  return(    
+    <div id="toy-collection">
+      {props.toys.map((toy)=> {
+        return <ToyCard toy={toy} key={toy.id} donateToy={props.donateToy} likeToy={props.likeToy}/>
+      })}
+    </div>    
+  )
+}
+
+export default ToyContainer;
+
+// ToyCard.jsx
+import React, { Component } from 'react';
+
+class ToyCard extends Component {
+
+  render() {
+    return (
+      <div className="card">
+        <h2>{this.props.toy.name}</h2>
+        <img src={this.props.toy.image} alt={"toy"} className="toy-avatar" />
+        <p>{this.props.toy.likes} Likes </p>
+        <button className="like-btn" onClick={() => this.props.likeToy(this.props.toy)}>Like {'<3'}</button>
+        <button className="del-btn" onClick={() => this.props.donateToy(this.props.toy)}>Donate to GoodWill</button>
+      </div>
+    );
+  }
+
+}
+
+export default ToyCard;
