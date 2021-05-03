@@ -16,4 +16,4 @@ class ToyCard extends Component {
 
 }
 
-export default ToyCard;
+export default ToyCard

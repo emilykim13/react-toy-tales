@@ -58,7 +58,7 @@ class App extends React.Component{
     if(foundIndex !== -1)
     {
       const toysSpliced = [...this.state.toys]
-      toysSpliced.splice(foundIndex,1,toyToLike)
+      toysSpliced.splice(foundIndex, 1, toyToLike)
       this.setState({
         toys: toysSpliced
       })

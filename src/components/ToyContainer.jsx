@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 import ToyCard from './ToyCard'
 
+// functional
 const ToyContainer = (props) => {
-  return(    
+  return(
     <div id="toy-collection">
       {props.toys.map((toy)=> {
-        return <ToyCard toy={toy} key={toy.id} donateToy={props.donateToy} likeToy={props.likeToy}/>
+        return <ToyCard toy={toy} key={toy.id} likeToy={props.likeToy} donateToy={props.donateToy}/>
       })}
-    </div>    
+    </div>
   )
 }
-
-export default ToyContainer;
+export default ToyContainer

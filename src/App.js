@@ -30,42 +30,41 @@ class App extends React.Component{
     }))
   }
 
-  donateToy = (toyToDonate) => {
-    console.log(`donateTo Reached with ${toyToDonate.name}`)
-    const foundId = this.state.toys.findIndex(toy => toy.id === toyToDonate.id)
-    if( foundId !== -1)
+  donateToy = (toyGettingDonated) => {
+    console.log(`${toyGettingDonated.name} has been donated.`)
+    const donateToyId = this.state.toys.findIndex(toy => toy.id === toyGettingDonated.id)
+    if( donateToyId !== -1)
     {
-      const toysSpliced = [...this.state.toys]
-      toysSpliced.splice(foundId,1)
+      const currentToysArr = [...this.state.toys]
+      currentToysArr.splice(donateToyId,1)
       this.setState({
-        toys: toysSpliced
+        toys: currentToysArr
       })
     }
   }
 
-  likeToy = (toyToLike) => {
-    console.log("likeToy")
-    toyToLike.likes = toyToLike.likes +1 
-    const foundIndex = this.state.toys.findIndex(toy => toy.id === toyToLike.id)    
-    if(foundIndex !== -1)
+  likeToy = (toyGettingLiked) => {
+    console.log("This got got a like")
+    toyGettingLiked.likes = toyGettingLiked.likes + 1 
+    const likeToyId = this.state.toys.findIndex(toy => toy.id === toyGettingLiked.id)    
+    if(likeToyId !== -1)
     {
-      const toysSpliced = [...this.state.toys]
-      toysSpliced.splice(foundIndex,1,toyToLike)
+      const currentToysArr = [...this.state.toys]
+      currentToysArr.splice(likeToyId, 1, toyGettingLiked)
       this.setState({
-        toys: toysSpliced
+        toys: currentToysArr
       })
     }
   }
 
   createNewToy = (e) => {
-    e.preDefault()
-    // console.log(e.currentTarget.children[1].value)
-    // console.log(e)
+    e.preventDefault()
     const defaultImage = "https://atlas-content-cdn.pixelsquid.com/stock-images/toy-race-car-track-AER0ZKB-600.jpg"
     const inputImageValue = e.currentTarget.children[3].value
     const newToyId = this.state.toys.length > 0 ? this.state.toys[this.state.toys.length-1].id + 1 : 0
     const newImage = inputImageValue === "" ? defaultImage :inputImageValue
-    const newToy = {id: newToyId, 
+    const newToy = {
+      id: newToyId, 
       name: e.currentTarget.children[1].value, 
       image: newImage,
       likes: 0
@@ -81,11 +80,9 @@ class App extends React.Component{
       <div>
         <Header/>
         {this.state.display ? <ToyForm createNewToy={this.createNewToy}/> : null}
-
           <div className="buttonContainer">
             <button onClick={this.handleClick}> Add a Toy </button>
           </div>
-
         <ToyContainer toys={this.state.toys} donateToy={this.donateToy} likeToy={this.likeToy}/>
       </div>
     )
